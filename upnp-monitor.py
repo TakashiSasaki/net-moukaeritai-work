@@ -1,5 +1,5 @@
 import socket
-import struct
+import urllib.request
 import xml.etree.ElementTree as ET
 
 # SSDPマルチキャストアドレスとポート
@@ -21,7 +21,7 @@ ssdp_discover_message = (
 # SSDPソケットの作成と設定
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.settimeout(5)
+sock.settimeout(100)  # タイムアウトを10秒に設定
 
 # マルチキャストアドレスへのディスカバリメッセージの送信
 sock.sendto(ssdp_discover_message.encode(), (SSDP_MULTICAST_ADDRESS, SSDP_PORT))
